@@ -1,32 +1,81 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <jz-tree
+      :isOpen="true"
+      :isCheck="true"
+      :list="list"
+      :func="onClick"
+      :expand="openClick"
+      :contextmenu="rightClick"
+      :select="selectClick"
+    />
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import jzTree from "@/pages/jz-tree/index.vue";
+export default {
+  components: {
+    jzTree
+  },
+  data() {
+    return {
+      list: [
+        {
+          name: "音乐",
+          id: 1,
+          children: [
+            {
+              name: "流行",
+              id: 2
+            },
+            {
+              name: "伤感",
+              id: 3
+            }
+          ]
+        },
+        {
+          name: "视频",
+          id: 4,
+          children: [
+            {
+              name: "热血",
+              id: 5
+            },
+            {
+              name: "惊悚",
+              id: 6
+            }
+          ]
+        }
+      ]
+    };
+  },
+  methods: {
+    // 单击节点的回调
+    onClick(node) {
+      console.log("单击节点的回调", node);
+    },
+    // 点击展开的回调
+    openClick(node) {
+      console.log("点击展开", node);
+    },
+    // 右击回调
+    rightClick(node) {
+      console.log("右击节点", node);
+    },
+    // 点击选框回调
+    selectClick(nodes) {
+      console.log("点击选框", nodes);
     }
   }
+};
+</script>
+
+<style lang="less">
+#app {
+  display: flex;
+  justify-content: left;
 }
 </style>
